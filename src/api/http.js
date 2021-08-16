@@ -1,3 +1,5 @@
+import router from '../router'
+
 // 配置API接口地址
 var root = 'http://81.68.146.67:8000/'
 // var root = 'http://localhost:44330/'
@@ -68,11 +70,12 @@ axios.interceptors.response.use(
     },
     error => {
         if (error.response) {
-            console.log('error response', error)
+            // console.log('error response', error)
             switch (error.response.status) {
                 case 401:
                     // 返回 401 清除token信息并跳转到登录页面
                     console.log('401')
+                    console.log(router.currentRoute.fullPath)
                     // router.replace({
                     //     path: "login",
                     //     query: { redirect: router.currentRoute.fullPath }
@@ -104,7 +107,6 @@ function apiAxios (method, url, params, success, failure) {
         .catch(function (err) {
             if (err) {
                 console.log('err', err)
-                // window.alert('api error, HTTP CODE: ' + err)
             }
         })
 }

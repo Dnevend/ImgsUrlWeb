@@ -12,8 +12,8 @@
         :open="showSettingParams">
       <el-form :model="form">
         <el-form-item label="参数名" :label-width="formLabelWidth">
-          <el-select v-model="form.value" placeholder="请选参数"
-                     @change="onOptionChange($event)">
+          <el-select v-model="form.param" placeholder="请选参数"
+                     @change="onOptionChange">
             <el-option v-for="item in form.settingParams"
                        :key="item.id"
                        :label="item.label"
@@ -22,12 +22,13 @@
           </el-select>
         </el-form-item>
         <el-form-item label="值" :label-width="formLabelWidth">
-          <el-input v-model="form.label" autocomplete="off"></el-input>
+          <el-input v-model="form.value" autocomplete="off"></el-input>
         </el-form-item>
+        <span :model="form.desc">{{this.form.desc}}</span>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">设 置</el-button>
+        <el-button type="primary" @click="onSetParams">设 置</el-button>
       </div>
     </el-dialog>
 
@@ -67,6 +68,11 @@
           border
           style="width: 100%">
         <el-table-column
+            v-if="false"
+            prop="id"
+            label="ID">
+        </el-table-column>
+        <el-table-column
             align="center"
             prop="imgUrl"
             label="图片"
@@ -97,16 +103,18 @@
         </el-table-column>
       </el-table>
 
-<!--      <el-pagination-->
-<!--          class="pagination-top"-->
-<!--          @size-change="handleSizeChange"-->
-<!--          @current-change="handleCurrentChange"-->
-<!--          background-->
-<!--          :total="total"-->
-<!--          :page-sizes="[5, 10, 20, 30, 50]"-->
-<!--          :page-size="5"-->
-<!--          layout="total, sizes, prev, pager, next">-->
-<!--      </el-pagination>-->
+      <el-dialog
+          title="提示"
+          :visible.sync="dialogVisible"
+          :modal-append-to-body="false"
+          width="30%">
+        <span>确定删除吗？</span>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="confirmDelete">确 定</el-button>
+        </span>
+      </el-dialog>
+
     </div>
 
   </div>
@@ -117,8 +125,10 @@ export default {
   data() {
     return {
       list: [],
+      operaRow: [],
       tableData: [
         {
+          id: 0,
           imgUrl: '',
           UpTime: '',
           Uploader: '',
@@ -130,9 +140,8 @@ export default {
       dialogFormVisible: false,
       settingParams: [],
       form: {
-        settingParams: [{id: 0, label: ''}],
-        region: '',
-        name: '',
+        settingParams: {},
+        param: '',
         value: '',
         desc: ''
       },
@@ -145,16 +154,18 @@ export default {
 
       page: 1,
       pageSize: 5,
-      total: 0
+      total: 0,
+
+      dialogVisible: false
     }
   },
   methods: {
-    onExit() {
+    onExit() {//退出
       localStorage.removeItem("Flag")
       this.$store.commit("saveToken", "");//清掉 token
       this.$router.push({path: '/Login'});
     },
-    showSettingParams() { //获取参数列表
+    showSettingParams() {//获取参数列表
       this.dialogFormVisible = true;
       let that = this;
       this.$api.post(
@@ -163,9 +174,38 @@ export default {
           r => {
             that.form.settingParams = [];
             r.response.forEach(function (obj) {
-              let param = { id: obj.id, label: obj.Param, value: obj.value }
+              let param = { id: obj.id, label: obj.Param, value: obj.id, result: obj.Value, remark: obj.Remark }
               that.form.settingParams.push(param)
             })
+          }
+      );
+    },
+    onOptionChange(data){//选择参数
+      var objValue = {};
+      this.form.settingParams.forEach((val) => {
+        if(val.value == data)
+        {
+          objValue = val;
+        }
+      })
+      this.form.value = objValue.result;
+      this.form.desc = objValue.remark;
+      this.form.param = objValue.label;
+    },
+    onSetParams() {//设置系统参数
+      this.dialogFormVisible = false;
+      let that = this;
+      this.$api.post(
+          'api/setting/SetParam',
+          { Param: this.form.param, Value: this.form.value},
+          r => {
+            if(r.status == 200)
+            {
+              this.$message({
+                showClose: true,
+                message: "修改成功！"
+              });
+            }
           }
       );
     },
@@ -174,24 +214,22 @@ export default {
       this.$api.post(
           'api/FilesUrl/GetAllFilesUrlList',
           { page: this.page, pageSize: this.pageSize },
-          r => {
+          res => {
             // console.log(r.response)
-            that.total = r.response.total
-            r.response.imgList.forEach((obj) => {
+            that.total = res.response.total
+            res.response.imgList.forEach((obj) => {
               obj.imgUrl = that.$imgUrlRoot + obj.Url
             })
-            that.tableData = r.response.imgList
+            that.tableData = res.response.imgList
           }
       );
     },
-    showImg(row) {
+    showImg(row) {//显示图片
       console.log(row);
     },
-    removeImg(row) {
-      console.log(row);
-    },
-    onOptionChange(event){
-      console.log('optionchange', event)
+    removeImg(row) {//删除图片
+      this.dialogVisible = true
+      this.operaRow = row;
     },
     handleSizeChange(val)
     {
@@ -201,6 +239,26 @@ export default {
     handleCurrentChange(val){
       this.page = val
       this.onSearch()
+    },
+    confirmDelete()
+    {//提示确认删除
+      let that = this;
+      this.dialogVisible = false;
+      this.$api.post(
+          `api/FilesUrl/RemoveUrlById?id=`+that.operaRow.id,
+          { },
+          res => {
+            console.log(res)
+            if(res.response > 0)
+            {
+              this.$message({
+                showClose: true,
+                message: "删除成功！"
+              });
+              this.onSearch()
+            }
+          }
+      );
     }
   },
   mounted() {
