@@ -58,9 +58,9 @@
           @current-change="handleCurrentChange"
           background
           :total="total"
-          :page-sizes="[5, 10, 20, 30, 50]"
+          :page-sizes="[5, 10, 30, 50]"
           :page-size="5"
-          layout="total, sizes, prev, pager, next">
+          layout="total, sizes, prev, next">
       </el-pagination>
 
       <el-table
@@ -79,13 +79,26 @@
             width="300">
           <template slot-scope="scope">
             <span class="title-img">
-              <img :src="scope.row.imgUrl" :alt="scope.row.remark" class="table-img">
+              <img :src="scope.row.imgUrl" :alt="scope.row.Type" class="table-img" @click="showRowImg(scope.row)" >
             </span>
+          </template>
+        </el-table-column>
+        <el-table-column
+            prop="Type"
+            label="类型">
+          <template slot-scope="scope">
+            <el-tag
+                :type="'primary'"
+                disable-transitions>{{scope.row.Type}}</el-tag>
           </template>
         </el-table-column>
         <el-table-column
             prop="UpTime"
             label="日期">
+          <template slot-scope="scope">
+            <i class="el-icon-time"></i>
+            <span style="margin-left: 10px">{{ scope.row.UpTime }}</span>
+          </template>
         </el-table-column>
         <el-table-column
             prop="Uploader"
@@ -94,8 +107,7 @@
 
         <el-table-column
             fixed="right"
-            label="操作"
-            width="100">
+            label="操作">
           <template slot-scope="scope">
             <el-button @click="showImg(scope.row)" type="text" size="small">查看</el-button>
             <el-button @click="removeImg(scope.row)" type="text" size="small">删除</el-button>
@@ -107,12 +119,30 @@
           title="提示"
           :visible.sync="dialogVisible"
           :modal-append-to-body="false"
-          width="30%">
+          width="50%">
         <span>确定删除吗？</span>
         <span slot="footer" class="dialog-footer">
           <el-button @click="dialogVisible = false">取 消</el-button>
           <el-button type="primary" @click="confirmDelete">确 定</el-button>
         </span>
+      </el-dialog>
+
+      <el-dialog
+          title="查看原图"
+          :fullscreen="fullscreen"
+          @click="setFullScreen"
+          :visible.sync="imgDialogVisible"
+          :modal-append-to-body="false"
+          width="61.8%">
+        <span>
+          <el-button v-clipboard:copy="imgUrl" v-clipboard:success="onCopy">Copy Url.</el-button>
+        </span>
+        <p></p>
+        <el-image :src="imgUrl" @click="setFullScreen" >
+          <div slot="placeholder" class="image-slot">
+            Loading<span class="dot">...</span>
+          </div>
+        </el-image>
       </el-dialog>
 
     </div>
@@ -130,6 +160,7 @@ export default {
         {
           id: 0,
           imgUrl: '',
+          Type: '',
           UpTime: '',
           Uploader: '',
           remark: ''
@@ -156,7 +187,10 @@ export default {
       pageSize: 5,
       total: 0,
 
-      dialogVisible: false
+      dialogVisible: false,
+      imgDialogVisible: false,
+      fullscreen: false,
+      imgUrl: ''
     }
   },
   methods: {
@@ -213,23 +247,39 @@ export default {
       let that = this;
       this.$api.post(
           'api/FilesUrl/GetAllFilesUrlList',
-          { page: this.page, pageSize: this.pageSize },
+          { page: this.page, pageSize: this.pageSize, startDate: this.ruleForm.startDate, stopDate: this.ruleForm.stopDate },
           res => {
             // console.log(r.response)
             that.total = res.response.total
             res.response.imgList.forEach((obj) => {
-              obj.imgUrl = that.$imgUrlRoot + obj.Url
+              obj.imgUrl = that.$imgUrlRoot + "small/" + obj.Url
             })
             that.tableData = res.response.imgList
           }
       );
     },
+    showRowImg(row) {//显示图片
+      this.fullscreen = true;
+      this.imgUrl = this.$imgUrlRoot + row.Url;
+      this.imgDialogVisible = true;
+    },
     showImg(row) {//显示图片
-      console.log(row);
+      this.imgUrl = this.$imgUrlRoot + row.Url;
+      this.imgDialogVisible = true;
+      this.fullscreen = false;
     },
     removeImg(row) {//删除图片
       this.dialogVisible = true
       this.operaRow = row;
+    },
+    setFullScreen() {//全屏
+      this.fullscreen = !this.fullscreen;
+    },
+    onCopy() {//复制图片URL
+      this.$message({
+        showClose: true,
+        message: 'Copyed'
+      });
     },
     handleSizeChange(val)
     {
@@ -285,11 +335,14 @@ export default {
   .pagination-bottom {
     margin-top: 10px;
   }
-  .table-img {
-    width: 300px;
-  }
+  /*.table-img {*/
+  /*  width: 300px;*/
+  /*}*/
   .demo-form-inline label{
     color: #ffffff;
+  }
+  .el-image{
+    margin-top: 20px;
   }
 </style>
 

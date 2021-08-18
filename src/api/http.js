@@ -1,4 +1,6 @@
 import router from '../router'
+import store from '../store'
+import ElementUi from "element-ui";
 
 // 配置API接口地址
 var root = 'http://81.68.146.67:8000/'
@@ -74,12 +76,16 @@ axios.interceptors.response.use(
             switch (error.response.status) {
                 case 401:
                     // 返回 401 清除token信息并跳转到登录页面
-                    console.log('401')
-                    console.log(router.currentRoute.fullPath)
-                    // router.replace({
-                    //     path: "login",
-                    //     query: { redirect: router.currentRoute.fullPath }
-                    // });
+                    localStorage.removeItem("Flag")
+                    store.commit("saveToken", "");//清掉 token
+                    router.replace({
+                        path: "/Login",
+                        query: { redirect: router.currentRoute.fullPath }
+                    });
+                    ElementUi.Message.error({
+                        showClose: true,
+                        message:'Identity invalid!'
+                    });
             }
         }
         return Promise.reject(error.response.data); // 返回接口返回的错误信息
@@ -107,6 +113,13 @@ function apiAxios (method, url, params, success, failure) {
         .catch(function (err) {
             if (err) {
                 console.log('err', err)
+                // if(err.status == 401)
+                // {
+                //     router.replace({
+                //         path: "/Login",
+                //         query: { redirect: router.currentRoute.fullPath }
+                //     });
+                // }
             }
         })
 }
