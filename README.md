@@ -1,16 +1,16 @@
 # ImgsUrlWeb
 
-项目介绍：
+<strong>项目介绍：</strong>
 <br/>
 前后端分离的个人图床管理网站--前端部分
  
-技术栈：
+<strong>技术栈：</strong>
 <br/>
  前后端分离练手项目：.Net + Vue
  前端项目主体使用Vue2.0 及 Element-ui样式 进行开发；
  后端使用.Net WebApi提供交互交口，代码后期上传。
  
-功能介绍：
+<strong>功能介绍：</strong>
  
  1.上传图片生成访问URL
  
@@ -37,7 +37,7 @@
   登陆后上传数量无限制
   
   
-项目使用:
+<strong>项目使用:</strong>
 
   --安装依赖
   npm install
@@ -48,10 +48,10 @@
   --打包项目
   npm run build
   
-项目截图
+<strong>项目截图</strong>
 <br/>
-<img src="http://81.68.146.67:8000/imgsUrl/eedeb3f756904eac93dcdbf43cf3604a.png"/>
-<img src="http://81.68.146.67:8000/imgsUrl/381e15bfd6bc48dbba970449e196fdc1.png"/>
-<img src="http://81.68.146.67:8000/imgsUrl/c2f333f77a2c4d819d608d171a8cafc4.png"/>
-<img src="http://81.68.146.67:8000/imgsUrl/21a8d6ff8108405c8219e44387ed70e5.png"/>
-<img src="http://81.68.146.67:8000/imgsUrl/3842cbc4ae5e4715a9e134fbec6b6f1e.png"/>
+<img src="http://81.68.146.67:8000/imgsUrl/eedeb3f756904eac93dcdbf43cf3604a.png" style="width=300px;"/>
+<img src="http://81.68.146.67:8000/imgsUrl/381e15bfd6bc48dbba970449e196fdc1.png" style="width=300px;"/>
+<img src="http://81.68.146.67:8000/imgsUrl/c2f333f77a2c4d819d608d171a8cafc4.png" style="width=300px;"/>
+<img src="http://81.68.146.67:8000/imgsUrl/21a8d6ff8108405c8219e44387ed70e5.png" style="width=300px;"/>
+<img src="http://81.68.146.67:8000/imgsUrl/3842cbc4ae5e4715a9e134fbec6b6f1e.png" style="width=300px;"/>
