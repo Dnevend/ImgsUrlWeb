@@ -50,8 +50,8 @@
   
 <strong>项目截图</strong>
 <br/>
-<img src="http://81.68.146.67:8000/imgsUrl/eedeb3f756904eac93dcdbf43cf3604a.png" style="width=300px;"/>
-<img src="http://81.68.146.67:8000/imgsUrl/381e15bfd6bc48dbba970449e196fdc1.png" style="width=300px;"/>
-<img src="http://81.68.146.67:8000/imgsUrl/c2f333f77a2c4d819d608d171a8cafc4.png" style="width=300px;"/>
-<img src="http://81.68.146.67:8000/imgsUrl/21a8d6ff8108405c8219e44387ed70e5.png" style="width=300px;"/>
-<img src="http://81.68.146.67:8000/imgsUrl/3842cbc4ae5e4715a9e134fbec6b6f1e.png" style="width=300px;"/>
+<img src="http://81.68.146.67:8000/imgsUrl/eedeb3f756904eac93dcdbf43cf3604a.png" style="width:500px;"/>
+<img src="http://81.68.146.67:8000/imgsUrl/381e15bfd6bc48dbba970449e196fdc1.png" style="width:500px;"/>
+<img src="http://81.68.146.67:8000/imgsUrl/c2f333f77a2c4d819d608d171a8cafc4.png" style="width:500px;"/>
+<img src="http://81.68.146.67:8000/imgsUrl/21a8d6ff8108405c8219e44387ed70e5.png" style="width:500px;"/>
+<img src="http://81.68.146.67:8000/imgsUrl/3842cbc4ae5e4715a9e134fbec6b6f1e.png" style="width:500px;"/>
