@@ -10,7 +10,9 @@
 <br/>
  前端项目主体使用Vue2.0框架、Axios发送请求、Element-ui处理样式；
 <br/>
- 后端使用.Net WebApi提供交互交口，EF6进行数据库交互，Identity进行身份验证；
+ 后端使用.Net WebApi提供业务交互接口，EF6进行数据库交互，Identity进行身份验证；
+<br/>
+ PS:后端程序及数据库结构会在后期进行上传。
  
 <strong>开发中的问题：</strong>
 <br/>
