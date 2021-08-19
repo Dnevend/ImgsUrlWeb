@@ -7,8 +7,8 @@
 <strong>技术栈：</strong>
 <br/>
  前后端分离练手项目：.Net + Vue
- 前端项目主体使用Vue2.0 及 Element-ui样式 进行开发；
- 后端使用.Net WebApi提供交互交口，代码后期上传。
+ 前端项目主体使用Vue2.0框架、Axios发送请求、Element-ui处理样式；
+ 后端使用.Net WebApi提供交互交口，EF6进行数据库交互，Identity进行身份验证；
  
 <strong>功能介绍：</strong>
  
