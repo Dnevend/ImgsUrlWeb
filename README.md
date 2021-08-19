@@ -39,6 +39,7 @@
   npm run build
   
 项目截图
+<br/>
 <img src="http://81.68.146.67:8000/imgsUrl/eedeb3f756904eac93dcdbf43cf3604a.png"/>
 <img src="http://81.68.146.67:8000/imgsUrl/381e15bfd6bc48dbba970449e196fdc1.png"/>
 <img src="http://81.68.146.67:8000/imgsUrl/c2f333f77a2c4d819d608d171a8cafc4.png"/>
