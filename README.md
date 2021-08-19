@@ -7,8 +7,19 @@
 <strong>技术栈：</strong>
 <br/>
  前后端分离练手项目：.Net + Vue
+<br/>
  前端项目主体使用Vue2.0框架、Axios发送请求、Element-ui处理样式；
+<br/>
  后端使用.Net WebApi提供交互交口，EF6进行数据库交互，Identity进行身份验证；
+ 
+<strong>开发中的问题：</strong>
+<br/>
+Axios会发送OPTIONS预检请求，导致跨域问题。处理方式：后端做Options处理，直接允许通过返回200；应该有更妥善的处理方法。
+<br/>
+封装的Axios方法，对API进行请求时，会由不同的Content-Type造成请求出错。后来直接使用了Axios，可以对封装方法进行优化。
+<br/>
+整个小项目请求交互问题处理内容会多一些，其他的UI参考Element官方文档简单解决。
+
  
 <strong>功能介绍：</strong>
  
