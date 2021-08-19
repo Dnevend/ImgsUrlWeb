@@ -37,3 +37,6 @@
 
   --打包项目
   npm run build
+  
+项目截图
+<img src=""/>
