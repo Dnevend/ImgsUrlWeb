@@ -1,8 +1,9 @@
 # ImgsUrlWeb
 
- Image Upload And generate Url links
+前后端分离的个人图床管理网站
  
- 介绍：前后端分离练手项目；
+介绍：
+ 前后端分离练手项目：.Net + Vue
  前端项目主体使用Vue2.0 及 Element-ui样式 进行开发；后端使用.Net提供交互交口，后台代码稍后上传。
  
 功能介绍：
