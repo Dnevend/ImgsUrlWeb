@@ -7,7 +7,11 @@
 
     <el-row style="margin-top: 10px;">
       <el-input class="url" v-model="imgUrl" placeholder="URL" style="width: 300px;" ></el-input>
-      <el-button v-clipboard:copy="imgUrl" v-clipboard:success="onCopy">Copy</el-button>
+      <br/>
+      <div class="action">
+        <el-button v-clipboard:copy="imgUrl" v-clipboard:success="onCopy">Copy</el-button>
+        <el-button v-clipboard:copy="imgUrl" v-clipboard:success="onQrShow">QR.</el-button>
+      </div>
     </el-row>
 
     <div class="upload-container">
@@ -20,14 +24,59 @@
       </el-upload>
     </div>
 
+    <div class="statement">
+      注意：使用此网站功能时，代表您已了解<a href="#" class="statementContent" @click="showStatement">《使用协议》</a>
+    </div>
+
+    <el-dialog
+        title="Qr Code."
+        :visible.sync="qrDialogVisible"
+        :show-close="false"
+        :modal-append-to-body="false"
+        width="50%"
+        center>
+      <vue-qr :text="imgUrl"></vue-qr>
+    </el-dialog>
+
+    <el-dialog
+        title="《使用协议》"
+        :visible.sync="statementDialogVisible"
+        :show-close="false"
+        :modal-append-to-body="false"
+        width="60%"
+        center>
+      <div class="statementlist">
+        <div>
+          <ul>
+            <li>不得上传色情、暴力、政治等内容</li>
+            <li>不得上传侵犯版权、个人隐私权等内容</li>
+            <li>图片不得用于博彩、棋牌、网赚等网站</li>
+            <li>违反以上规定直接删除图片不另行通知</li>
+            <li>图片长期保存，直到网站无法维持</li>
+          </ul>
+        </div>
+
+        <div class="github"><a href="https://github.com/Dnevend/ImgsUrlWeb" target="_blank">项目开源地址</a></div>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="statementDialogVisible = false">我已了解</el-button>
+      </span>
+    </el-dialog>
+
   </div>
 </template>
 
 <script>
+import vueQr from 'vue-qr'
 export default {
+  components: {
+    vueQr
+  },
   data() {
     return {
       imgUrl: '',
+      statementDialogVisible: false,
+      qrDialogVisible: false,
     }
   },
   methods: {
@@ -61,6 +110,14 @@ export default {
         showClose: true,
         message: 'Copyed'
       });
+    },
+    onQrShow()
+    {
+      this.qrDialogVisible = true;
+    },
+    showStatement()
+    {
+      this.statementDialogVisible = true;
     }
   },
   mounted() {
@@ -83,6 +140,47 @@ export default {
   }
   .upload-main{
     opacity: 0.1;
+  }
+  .action
+  {
+    margin-top: 10px;
+  }
+  .statement
+  {
+    position: fixed;
+    bottom: 0px;
+    right: 15px;
+    /*width: 100%;*/
+    font-size: 12px;
+    margin-bottom: 70px;
+  }
+  .statementContent
+  {
+    color: #008800;
+    font-style:italic;
+    text-decoration: none;
+  }
+  .statementlist
+  {
+    width: 100%;
+    text-align: center;
+  }
+  .statementlist ul
+  {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+  }
+  .statementlist ul li
+  {
+    text-align:left;
+  }
+  .github
+  {
+    margin-top: 20px;
+  }
+  .el-dialog--center .el-dialog__body {
+    text-align: center;
   }
 </style>
 

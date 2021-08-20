@@ -72,7 +72,7 @@ axios.interceptors.response.use(
     },
     error => {
         if (error.response) {
-            // console.log('error response', error)
+            console.log('error response', error.response)
             switch (error.response.status) {
                 case 401:
                     // 返回 401 清除token信息并跳转到登录页面

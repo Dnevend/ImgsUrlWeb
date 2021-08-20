@@ -14,6 +14,8 @@ import api from './api/http.js'
 
 import Qs from 'qs'
 
+import vueQr from 'vue-qr'
+
 Vue.prototype.$imgUrlRoot = 'http://81.68.146.67:8000/ImgsUrl/'
 
 axios.defaults.baseURL = 'http://81.68.146.67:8000/'
