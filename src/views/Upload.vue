@@ -31,11 +31,10 @@
     <el-dialog
         title="Qr Code."
         :visible.sync="qrDialogVisible"
-        :show-close="false"
+        :show-close="true"
         :modal-append-to-body="false"
-        width="50%"
-        center>
-      <vue-qr :text="imgUrl"></vue-qr>
+        width="60%">
+      <vue-qr :logo-src="logoSrc" :text="imgUrl" class="qrImg"></vue-qr>
     </el-dialog>
 
     <el-dialog
@@ -77,6 +76,7 @@ export default {
       imgUrl: '',
       statementDialogVisible: false,
       qrDialogVisible: false,
+      logoSrc: require("../assets/favicon.png")
     }
   },
   methods: {
@@ -181,6 +181,13 @@ export default {
   }
   .el-dialog--center .el-dialog__body {
     text-align: center;
+  }
+  .qrImg
+  {
+    width: auto;
+    height: auto;
+    min-height: 100px;
+    min-width: 100px;
   }
 </style>
 

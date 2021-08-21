@@ -135,8 +135,11 @@
           :modal-append-to-body="false"
           width="61.8%">
         <span>
-          <el-button v-clipboard:copy="imgUrl" v-clipboard:success="onCopy">Copy Url.</el-button>
+          <el-button v-clipboard:copy="imgUrl" v-clipboard:success="onCopy">Copy.</el-button>
+          <el-button @click="onQr">Q R.</el-button>
         </span>
+        <p></p>
+        <vue-qr v-if="showQr" :logo-src="logoSrc" :text="imgUrl" class="qrImg"></vue-qr>
         <p></p>
         <el-image :src="imgUrl" @click="setFullScreen" >
           <div slot="placeholder" class="image-slot">
@@ -151,7 +154,12 @@
 </template>
 
 <script>
+import vueQr from "vue-qr";
+
 export default {
+  components: {
+    vueQr
+  },
   data() {
     return {
       list: [],
@@ -190,7 +198,10 @@ export default {
       dialogVisible: false,
       imgDialogVisible: false,
       fullscreen: false,
-      imgUrl: ''
+      imgUrl: '',
+
+      logoSrc: require("../assets/favicon.png"),
+      showQr: false
     }
   },
   methods: {
@@ -259,11 +270,13 @@ export default {
       );
     },
     showRowImg(row) {//显示图片
+      this.showQr = false;
       this.fullscreen = true;
       this.imgUrl = this.$imgUrlRoot + row.Url;
       this.imgDialogVisible = true;
     },
     showImg(row) {//显示图片
+      this.showQr = false;
       this.imgUrl = this.$imgUrlRoot + row.Url;
       this.imgDialogVisible = true;
       this.fullscreen = false;
@@ -280,6 +293,9 @@ export default {
         showClose: true,
         message: 'Copyed'
       });
+    },
+    onQr() {//显示二维码
+      this.showQr = !this.showQr;
     },
     handleSizeChange(val)
     {
@@ -343,6 +359,10 @@ export default {
   }
   .el-image{
     margin-top: 20px;
+  }
+  .qrImg
+  {
+    width: 30%;
   }
 </style>
 
