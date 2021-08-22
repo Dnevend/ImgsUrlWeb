@@ -34,7 +34,7 @@
 
     <div class="dataTable">
       <el-form :inline="true" :model="ruleForm" class="demo-form-inline">
-        <el-form-item label="时间范围" required>
+        <el-form-item required>
           <el-col :span="11">
             <el-form-item prop="date">
               <el-date-picker type="date" placeholder="起始日期" v-model="ruleForm.startDate" style="width: 100%;"></el-date-picker>
@@ -134,13 +134,15 @@
           :visible.sync="imgDialogVisible"
           :modal-append-to-body="false"
           width="61.8%">
-        <span>
-          <el-button v-clipboard:copy="imgUrl" v-clipboard:success="onCopy">Copy.</el-button>
-          <el-button @click="onQr">Q R.</el-button>
-        </span>
-        <p></p>
-        <vue-qr v-if="showQr" :logo-src="logoSrc" :text="imgUrl" class="qrImg"></vue-qr>
-        <p></p>
+        <p>
+          <span>
+            <el-button v-clipboard:copy="imgUrl" v-clipboard:success="onCopy">Copy.</el-button>
+            <el-button @click="onQr">Q R.</el-button>
+          </span>
+        </p>
+
+        <p @click="setFullScreen"><vue-qr v-if="showQr" :logo-src="logoSrc" :text="imgUrl" class="qrImg"></vue-qr></p>
+
         <el-image :src="imgUrl" @click="setFullScreen" >
           <div slot="placeholder" class="image-slot">
             Loading<span class="dot">...</span>

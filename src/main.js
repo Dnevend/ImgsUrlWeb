@@ -4,33 +4,29 @@ import router from './router'
 import store from './store'
 import axios from "axios";
 import VueClipboard from 'vue-clipboard2';
-
-// elementui
 import  ElementUi from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
-
-//api
 import api from './api/http.js'
-
 import Qs from 'qs'
-
-import vueQr from 'vue-qr'
-
-Vue.prototype.$imgUrlRoot = 'http://81.68.146.67:8000/ImgsUrl/'
+import VueCookies from 'vue-cookies'
 
 axios.defaults.baseURL = 'http://81.68.146.67:8000/'
 // axios.defaults.baseURL = 'http://localhost:44330/'
+Vue.prototype.$imgUrlRoot = 'http://81.68.146.67:8000/ImgsUrl/'
+
 Vue.prototype.$axios = axios
 
 Vue.prototype.$api = api
 
 Vue.prototype.$qs = Qs
 
+Vue.prototype.$cookies = VueCookies
+
 Vue.config.productionTip = false
 
 Vue.use(ElementUi);
-
 Vue.use(VueClipboard);
+Vue.use(VueCookies);
 
 router.beforeEach((to, from, next) => {
 
