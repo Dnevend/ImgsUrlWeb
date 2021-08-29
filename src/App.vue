@@ -63,16 +63,16 @@
   .el-main {
     width:100%;
     height:100%;
-    background-color: #000000;
-    opacity: 0.8;
-    background-position:center center;
-    background-size:100% 100%;
-    -moz-background-size:100% 100%;
+    background: url("./assets/buddha.png") no-repeat;
+    //background-color: #000000;
+    //opacity: 0.9;
+    background-position:center top;
+    //background-size:100% 100%;
+    //-moz-background-size:100% 100%;
     text-align: center;
     position:fixed;
     left:0px;
   }
-
   .el-footer{
     position: fixed;
     left: 0px;
@@ -87,5 +87,7 @@
   {
     height:50px;
     vertical-align:middle;
+    //-webkit-animation: flip-2-hor-top-1 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+    //animation: flip-2-hor-top-1 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
   }
 </style>

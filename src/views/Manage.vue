@@ -115,6 +115,17 @@
         </el-table-column>
       </el-table>
 
+      <el-pagination
+          class="pagination-bottom"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          background
+          :total="total"
+          :page-sizes="[5, 10, 30, 50]"
+          :page-size="5"
+          layout="jumper">
+      </el-pagination>
+
       <el-dialog
           title="提示"
           :visible.sync="dialogVisible"

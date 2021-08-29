@@ -24,6 +24,10 @@
       </el-upload>
     </div>
 
+<!--    <div class="welcome">-->
+<!--      <p style="font-size: 46px; color: #008800;"><b>W e l c o m !</b></p>-->
+<!--    </div>-->
+
     <div class="statement">
       注意：使用此网站功能时，代表您已了解<a href="#" class="statementContent" @click="showStatement">《使用协议》</a>
     </div>
@@ -66,7 +70,8 @@
 </template>
 
 <script>
-import vueQr from 'vue-qr'
+import vueQr from 'vue-qr';
+import '../assets/css/animation.css';
 export default {
   components: {
     vueQr
@@ -137,6 +142,8 @@ export default {
   }
   .upload-container{
     margin-top: 10px;
+    -webkit-animation: bounce-top 0.9s both;
+    animation: bounce-top 0.9s both;
   }
   .upload-main{
     opacity: 0.1;
@@ -151,8 +158,11 @@ export default {
     bottom: 0px;
     right: 15px;
     /*width: 100%;*/
+    color: #E9EEF3;
     font-size: 12px;
     margin-bottom: 70px;
+    -webkit-animation: text-flicker-in-glow 4s linear both;
+    animation: text-flicker-in-glow 4s linear both;
   }
   .statementContent
   {
@@ -188,6 +198,10 @@ export default {
     height: auto;
     min-height: 100px;
     min-width: 100px;
+  }
+  .welcome {
+    -webkit-animation: blur-out-contract 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+    animation: blur-out-contract 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
   }
 </style>
 

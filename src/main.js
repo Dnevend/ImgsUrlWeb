@@ -10,9 +10,11 @@ import api from './api/http.js'
 import Qs from 'qs'
 import VueCookies from 'vue-cookies'
 
-axios.defaults.baseURL = 'http://81.68.146.67:8000/'
+// axios.defaults.baseURL = 'http://81.68.146.67:8000/'
+axios.defaults.baseURL = 'http://sstudent.club:8000/'
 // axios.defaults.baseURL = 'http://localhost:44330/'
-Vue.prototype.$imgUrlRoot = 'http://81.68.146.67:8000/ImgsUrl/'
+// Vue.prototype.$imgUrlRoot = 'http://81.68.146.67:8000/ImgsUrl/'
+Vue.prototype.$imgUrlRoot = 'http://sstudent.club:8000/ImgsUrl/'
 
 Vue.prototype.$axios = axios
 
