@@ -4,7 +4,9 @@
 <br/>
 前后端分离的个人图床管理网站--前端部分
 <br/>
-项目地址:<a href="http://81.68.146.67:8008/" target="_blank">点击访问</a>
+项目演示地址:<a href="http://81.68.146.67:8008/" target="_blank">点击访问</a>
+<br/>
+后端仓库地址:<a href="https://github.com/Dnevend/ImgsUrlAdmin" target="_blank">Github_ImgsUrlAdmin</a>
  
 <strong>技术栈：</strong>
 <br/>
